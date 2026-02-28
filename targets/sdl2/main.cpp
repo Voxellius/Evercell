@@ -13,10 +13,12 @@ void handle_sdl_error() {
 }
 
 void blit_display(SDL_Surface* surface) {
+    native_colour_t* data = Display::the().front_buffer->get_data();
+
     for (int y = 0; y < DISPLAY_HEIGHT; y++) {
         for (int x = 0; x < DISPLAY_WIDTH; x++) {
             size_t index = Display::coords_to_index(x, y);
-            Colour pixel = Display::the().front_buffer[index];
+            native_colour_t pixel = data[index];
             Colour24 pixel24 = pixel.to_24_bit_colour();
 
             SDL_Rect rect = (SDL_Rect) {

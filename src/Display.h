@@ -3,6 +3,7 @@
 
 #include <iostream>
 
+#include "Graphic.h"
 #include "Colour.h"
 
 class Display {
@@ -10,8 +11,8 @@ class Display {
         Display();
         ~Display();
 
-        Colour* back_buffer;
-        Colour* front_buffer;
+        Graphic<native_colour_t>* back_buffer;
+        Graphic<native_colour_t>* front_buffer;
 
         static Display& the();
 

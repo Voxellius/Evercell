@@ -2,13 +2,8 @@
 #include "profile.h"
 
 Display::Display() {
-    back_buffer = new Colour[DISPLAY_WIDTH * DISPLAY_HEIGHT];
-    front_buffer = new Colour[DISPLAY_WIDTH * DISPLAY_HEIGHT];
-
-    for (int i = 0; i < DISPLAY_WIDTH * DISPLAY_HEIGHT; i++) {
-        back_buffer[i] = Colour::grey(0);
-        front_buffer[i] = Colour::grey(0);
-    }
+    back_buffer = new Graphic<native_colour_t>(DISPLAY_WIDTH, DISPLAY_HEIGHT);
+    front_buffer = new Graphic<native_colour_t>(DISPLAY_WIDTH, DISPLAY_HEIGHT);
 }
 
 Display::~Display() {
@@ -22,7 +17,7 @@ Display& Display::the() {
 }
 
 void Display::flip() {
-    Colour* temp_buffer = back_buffer;
+    Graphic<native_colour_t>* temp_buffer = back_buffer;
 
     back_buffer = front_buffer;
     front_buffer = temp_buffer;
