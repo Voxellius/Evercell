@@ -2,14 +2,27 @@
 #include "profile.h"
 
 Display::Display() {
-    const size_t buffer_size = PROFILE_DISPLAY_WIDTH * PROFILE_DISPLAY_HEIGHT * PROFILE_DISPLAY_BPP / 8;
+    back_buffer = new Colour[DISPLAY_WIDTH * DISPLAY_HEIGHT];
+    front_buffer = new Colour[DISPLAY_WIDTH * DISPLAY_HEIGHT];
 
-    back_buffer = new char[buffer_size];
-    front_buffer = new char[buffer_size];
+    for (int i = 0; i < DISPLAY_WIDTH * DISPLAY_HEIGHT; i++) {
+        back_buffer[i] = Colour::grey(0);
+        front_buffer[i] = Colour::grey(0);
+    }
+}
+
+Display::~Display() {
+    delete back_buffer, front_buffer;
+}
+
+Display& Display::the() {
+    static Display instance;
+
+    return instance;
 }
 
 void Display::flip() {
-    char* temp_buffer = back_buffer;
+    Colour* temp_buffer = back_buffer;
 
     back_buffer = front_buffer;
     front_buffer = temp_buffer;
