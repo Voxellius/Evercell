@@ -36,6 +36,7 @@ template<class T> void Graphic<T>::draw_text(Font* font, unsigned int x, unsigne
         unsigned int height = font->get_size();
         uint8_t* bitmap = font->get_bitmap() + glyph->get_bitmap_offset();
         uint8_t current_bitmap_byte = 0;
+        unsigned int i = 0;
 
         for (unsigned int gy = 0; gy < height; y++) {
             for (unsigned int gx = 0; gx < width; x++) {
