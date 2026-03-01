@@ -5,6 +5,7 @@
 
 class Glyph {
     public:
+        Glyph();
         Glyph(uint8_t width, uint16_t bitmap_offset);
 
         uint8_t get_width() {return _width;}

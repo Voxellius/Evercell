@@ -3,10 +3,8 @@
 #include "Graphic.h"
 #include "Colour.h"
 
-template<class T> Graphic<T>::Graphic(unsigned int width, unsigned int height) {
-    _data = new T[width * height];
-    _brush = T::grey(0);
-
+template<class T> Graphic<T>::Graphic(unsigned int width, unsigned int height) :
+_width(width), _height(height), _data(new T[width * height]), _brush(T::grey(0)) {
     for (int i = 0; i < width * height; i++) {
         _data[i] = T::grey(255);
     }
@@ -38,15 +36,15 @@ template<class T> void Graphic<T>::draw_text(Font* font, unsigned int x, unsigne
         uint8_t current_bitmap_byte = 0;
         unsigned int i = 0;
 
-        for (unsigned int gy = 0; gy < height; y++) {
-            for (unsigned int gx = 0; gx < width; x++) {
+        for (unsigned int gy = 0; gy < height; gy++) {
+            for (unsigned int gx = 0; gx < width; gx++) {
                 if (i % 8 == 0) {
                     current_bitmap_byte = *bitmap;
                     bitmap++;
                 }
 
                 if (current_bitmap_byte & 1) {
-                    _unsafe_draw_pixel(gx + x, gy + y);
+                    draw_pixel(x + gx, y + gy);
                 }
 
                 current_bitmap_byte >>= 1;

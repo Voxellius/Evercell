@@ -1,0 +1,69 @@
+#!/usr/bin/env node
+
+var process = require("process");
+var fs = require("fs");
+
+var inputFile = process.argv[2];
+var outputFile = process.argv[3];
+
+var lines = fs.readFileSync(inputFile, "utf-8").split("\n");
+var output = [];
+var i = 0;
+var size = 0;
+var type = 0;
+
+while (i < lines.length) {
+    if (lines[i].startsWith("s")) {
+        size = parseInt(lines[i++].substring(1));
+        continue;
+    }
+
+    if (lines[i].startsWith("t")) {
+        type = parseInt(lines[i++].substring(1));
+        continue;
+    }
+
+    if (lines[i].startsWith("@")) {
+        var codepoint = parseInt(lines[i++].substring(1), 16);
+        var pixels = [];
+
+        for (var y = 0; y < size; y++) {
+            pixels.push(lines[i++]);
+        }
+
+        var width = pixels.map((row) => row.length).sort((a, b) => b - a)[0];
+        var data = [];
+        var currentByte = 0;
+        var j = 0;
+
+        for (var y = 0; y < size; y++) {
+            for (var x = 0; x < width; x++) {
+                currentByte >>= 1;
+
+                if (x < pixels[y].length && pixels[y][x] == "#") {
+                    currentByte |= 0b10000000;
+                }
+
+                if (j % 8 == 7) {
+                    data.push(currentByte);
+
+                    currentByte = 0;
+                }
+
+                j++;
+            }
+        }
+
+        data.push(currentByte >>> (8 - (j % 8)));
+
+        output.push(codepoint >>> 8, codepoint & 0xFF, width, ...data);
+
+        continue;
+    }
+
+    throw new Error(`Unrecognised format on line ${i + 1}`);
+}
+
+output = [size, type, ...output];
+
+fs.writeFileSync(outputFile, new Uint8Array(output));

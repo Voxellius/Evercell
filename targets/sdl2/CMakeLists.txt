@@ -19,8 +19,10 @@ file(GLOB SOURCES
     ${CMAKE_SOURCE_DIR}/*.cpp
     ${CMAKE_SOURCE_DIR}/*.h
     ${CMAKE_SOURCE_DIR}/../../profiles/3510i/*.h
+    ${CMAKE_SOURCE_DIR}/../../personalities/evercell/build/*.h
 )
 
 add_executable(evercell ${SOURCES})
 target_include_directories(Evercell PUBLIC ${CMAKE_SOURCE_DIR}/../../profiles/3510i)
+target_include_directories(Evercell PUBLIC ${CMAKE_SOURCE_DIR}/../../personalities/evercell/build)
 target_link_libraries(evercell PRIVATE Evercell ${SDL2_LIBRARIES})

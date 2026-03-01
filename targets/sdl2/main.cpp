@@ -4,6 +4,8 @@
 #include "profile.h"
 #include "Display.h"
 #include "Colour.h"
+#include "FontManager.h"
+#include "bold-9-latin.font.h"
 
 #define DISPLAY_SCALE 4
 
@@ -57,6 +59,11 @@ int main(int argc, char* argv[]) {
     SDL_UpdateWindowSurface(window);
 
     SDL_Event event;
+
+    Font* font = FontManager::the().load_font_data(font_bold_9_latin, font_bold_9_latin_len);
+
+    Display::the().back_buffer->draw_text(font, 10, 10, L"ABCD abcdij");
+    Display::the().flip();
 
     while (true) {
         blit_display(surface);

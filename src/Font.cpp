@@ -1,11 +1,7 @@
 #include "Font.h"
 
-Font::Font(unsigned int size, FontStyle style) {
-    _size = size;
-    _style = style;
-
-    _bitmap = nullptr;
-
+Font::Font(unsigned int size, FontStyle style, uint8_t* bitmap) :
+_size(size), _style(style), _bitmap(bitmap) {
     for (unsigned int i = 0; i < 256; i++) {
         _font_pages[i] = nullptr;
     }
@@ -21,6 +17,18 @@ Glyph* Font::get_glyph(wchar_t wc) {
     }
 
     return page->get_glyph(wc & 0xFF);
+}
+
+void Font::set_glyph(wchar_t wc, Glyph& glyph) {
+    FontPage* page = _font_pages[wc >> 8];
+
+    if (!page) {
+        page = new FontPage();
+
+        _font_pages[wc >> 8] = page;
+    }
+
+    page->set_glyph(wc & 0xFF, glyph);
 }
 
 unsigned int Font::compute_text_width(std::wstring text) {

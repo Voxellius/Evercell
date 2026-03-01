@@ -1,10 +1,9 @@
 #include "Display.h"
 #include "profile.h"
 
-Display::Display() {
-    back_buffer = new Graphic<native_colour_t>(DISPLAY_WIDTH, DISPLAY_HEIGHT);
-    front_buffer = new Graphic<native_colour_t>(DISPLAY_WIDTH, DISPLAY_HEIGHT);
-}
+Display::Display() :
+back_buffer(new Graphic<native_colour_t>(DISPLAY_WIDTH, DISPLAY_HEIGHT)),
+front_buffer(new Graphic<native_colour_t>(DISPLAY_WIDTH, DISPLAY_HEIGHT)) {}
 
 Display::~Display() {
     delete back_buffer, front_buffer;
