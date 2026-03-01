@@ -13,6 +13,7 @@ template<class T> class Graphic {
         T* get_data() {return _data;}
         void set_brush(T brush) {_brush = brush;}
 
+        void draw_pixel(unsigned int x, unsigned int y);
         void draw_text(Font* font, unsigned int x, unsigned int y, std::wstring text);
 
     private:
@@ -20,6 +21,10 @@ template<class T> class Graphic {
         unsigned int _height;
         T* _data;
         T _brush;
+
+        inline void _unsafe_draw_pixel(unsigned int x, unsigned int y) {
+            _data[(y * _width) + x] = _brush;
+        }
 };
 
 #endif

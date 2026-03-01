@@ -1,9 +1,5 @@
 #include "Font.h"
 
-Glyph* FontPage::get_glyph(uint8_t c) {
-    return &_glyphs[c];
-}
-
 Font::Font(unsigned int size, FontStyle style) {
     _size = size;
     _style = style;
@@ -19,8 +15,9 @@ Glyph* Font::get_glyph(wchar_t wc) {
     FontPage* page = _font_pages[wc >> 8];
 
     if (!page) {
-        // TODO: Return tofu instead
-        return nullptr;
+        static Glyph* unknown = new Glyph(0, -1);
+
+        return unknown;
     }
 
     return page->get_glyph(wc & 0xFF);
@@ -31,6 +28,10 @@ unsigned int Font::compute_text_width(std::wstring text) {
 
     for (wchar_t wc : text) {
         Glyph* glyph = get_glyph(wc);
+
+        if (glyph->get_bitmap_offset() == -1) {
+            continue;
+        }
 
         width += glyph->get_width();
         width++; // Add 1 pixel of kerning
