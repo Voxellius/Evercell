@@ -8,7 +8,6 @@ FontManager& FontManager::the() {
 
 Font* FontManager::load_font_data(uint8_t* font_data, size_t length) {
     size_t i = 0;
-
     unsigned int size = font_data[i++];
     FontStyle style = (FontStyle)font_data[i++];
     Font font(size, style, font_data);

@@ -26,7 +26,7 @@ template<class T> void Graphic<T>::draw_text(Font* font, unsigned int x, unsigne
     for (wchar_t wc : text) {
         Glyph* glyph = font->get_glyph(wc);
 
-        if (glyph->get_bitmap_offset() == -1) {
+        if (glyph->get_bitmap_offset() == (uint16_t)(-1)) {
             continue;
         }
 

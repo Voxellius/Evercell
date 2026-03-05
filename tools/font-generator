@@ -54,7 +54,9 @@ while (i < lines.length) {
             }
         }
 
-        data.push(currentByte >>> (8 - (j % 8)));
+        if (j % 8 != 0) {
+            data.push(currentByte >>> (8 - (j % 8)));
+        }
 
         output.push(codepoint >>> 8, codepoint & 0xFF, width, ...data);
 
