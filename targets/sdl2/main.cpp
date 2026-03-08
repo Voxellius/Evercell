@@ -63,9 +63,9 @@ int main(int argc, char* argv[]) {
     Font* font = FontManager::the().load_font_data(font_bold_9_latin, font_bold_9_latin_len);
 
     Display::the().back_buffer->draw_text(font, 1, 1, L"ABCDEFGHIJKLMN");
-    Display::the().back_buffer->draw_text(font, 1, 11, L"OPQ");
+    Display::the().back_buffer->draw_text(font, 1, 11, L"OPQR");
     Display::the().back_buffer->draw_text(font, 1, 21, L"abcdefghijklmnop");
-    Display::the().back_buffer->draw_text(font, 1, 31, L"q");
+    Display::the().back_buffer->draw_text(font, 1, 31, L"qr");
     Display::the().flip();
 
     while (true) {
