@@ -66,7 +66,8 @@ int main(int argc, char* argv[]) {
     Display::the().back_buffer->draw_text(font, 1, 11, L"OPQRSTUVWXYZ");
     Display::the().back_buffer->draw_text(font, 1, 21, L"abcdefghijklmnop");
     Display::the().back_buffer->draw_text(font, 1, 31, L"qrstuvwxyz");
-    Display::the().back_buffer->draw_text(font, 1, 41, L"!\"#$%");
+    Display::the().back_buffer->draw_text(font, 1, 41, L"0");
+    Display::the().back_buffer->draw_text(font, 1, 51, L"!\"#$%");
     Display::the().flip();
 
     while (true) {
